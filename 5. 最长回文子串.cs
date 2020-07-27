@@ -96,7 +96,57 @@ public class Solution
             public string LongestPalindrome(string s)
             {
                 string result = "";
-           
+                string str = s_add(s, '#');
+
+                int[] P = new int[str.Length];
+                int c = 0, r = 0;
+
+                for (int i = 1; i < str.Length; i++)
+                {
+                    int j = 2 * c - i;
+                    if (i < r)
+                    {
+                        P[i] = Math.Min(P[j], r - i);
+                    }
+                    else
+                    {
+                        P[i] = 0;
+                    }
+                    int n = 1;
+                    while (i + n + P[i] < str.Length && i - n - P[i] >= 0 && str[i + n + P[i]] == str[i - n - P[i]]) { P[i]++; }
+                    if (i + P[i] >= r)
+                    {
+                        c = i;
+                        r = i + P[i];
+                    }
+
+
+                }
+                int p_index = P.ToList().IndexOf(P.Max());
+                return s_sub(str.Substring(p_index - P[p_index], 2 * P[p_index] + 1), '#');
+
+                return result;
+            }
+             public string s_add(string s, char c)
+            {
+                string result = "";
+                foreach (char ch in s)
+                {
+                    result += c;
+                    result += ch;
+                }
+                return result + c;
+            }
+            public string s_sub(string s, char c)
+            {
+                string result = "";
+                foreach (char ch in s)
+                {
+                    if (ch != c)
+                    {
+                        result += c;
+                    }
+                }
                 return result;
             }
         }

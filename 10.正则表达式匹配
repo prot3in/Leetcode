@@ -1,0 +1,30 @@
+/*
+给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 '.' 和 '*' 的正则表达式匹配。
+
+'.' 匹配任意单个字符
+'*' 匹配零个或多个前面的那一个元素
+所谓匹配，是要涵盖 整个 字符串 s的，而不是部分字符串。
+
+说明:
+s 可能为空，且只包含从 a-z 的小写字母。
+p 可能为空，且只包含从 a-z 的小写字母，以及字符 . 和 *。
+
+*/
+
+public class Solution {
+    //回溯法
+    public bool IsMatch(string s, string p) {
+        if(p.Length==0) return s.Length==0;
+        bool first = s.Length>0 &&  ((p[0]=='.'? true:p[0]==s[0]))    ;
+        if(p.Length>=2 && p[1]=='*'){
+            return (IsMatch(s,p.Substring(2))) || (first && IsMatch(s.Substring(1),p)) ;
+        }
+        else{
+            return (first && IsMatch(s.Substring(1),p.Substring(1)));
+        }
+    }
+    
+    //自己写了n多个if还是没跑通，总有几个情况考虑不清楚。
+    //最终参考了https://leetcode-cn.com/problems/regular-expression-matching/solution/leetcode-10-regular-expression-matching-zheng-ze-b/  的 代码  
+    
+}

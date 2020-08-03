@@ -16,6 +16,7 @@
 */
 
 public class Solution {
+    //一个指针两次遍历
     public ListNode RemoveNthFromEnd(ListNode head, int n) {
         ListNode p = head;
         if(p.next == null) return null;
@@ -36,5 +37,23 @@ public class Solution {
                 }
                 p=p.next;
             }  
+    }
+    //两个指针，一次遍历
+    public ListNode RemoveNthFromEnd(ListNode head, int n) {
+        ListNode res = new ListNode(0); res.next = head;
+        ListNode p = res;
+        ListNode r = res;
+        while(n!=0){
+            p = p.next;
+            n--;
+        }
+        while(p.next!=null) {
+            p=p.next;
+            r=r.next;
+        }
+        r.next = r.next.next;
+        return res.next;
+            
+            
     }
 }
